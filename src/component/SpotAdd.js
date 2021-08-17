@@ -133,8 +133,8 @@ class SpotForm extends React.Component{
             
             <Form.Group as={Row} >
               <Col sm={4} className="FormButtonColumn">
-                <Button onClick={this.handleReset}>Reset</Button>
-                <Button type="submit" >Submit</Button>
+                <Button className="btn btn-warning" onClick={this.handleReset}>Reset</Button>
+                <Button className="btn btn-success" type="submit" >Submit</Button>
               </Col>
             </Form.Group>
           </Form>

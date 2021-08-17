@@ -55,7 +55,7 @@ class Dashboard extends React.Component{
                   <td> 
                       <div className="TableButtonContainer">
                         <Link to={'/'+spot.id}><Button>Update</Button></Link>
-                        <Button onClick={()=>this.props.onDelete(spot.id)}>Delete</Button>
+                        <Button className="btn btn-danger" onClick={()=>this.props.onDelete(spot.id)}>Delete</Button>
                       </div>
                   </td>
                 </tr>
