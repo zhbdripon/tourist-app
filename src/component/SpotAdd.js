@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Button, FormControl, Container, Form, Row, Col } from 'react-bootstrap';
 
 const INITIAL_FORM = {
@@ -16,16 +17,11 @@ class SpotForm extends React.Component{
       this.state = {
         formData : INITIAL_FORM
       }
-      this.spotTypes = [
-        'Beach',
-        'Hills',
-        'Fourtain',
-        'Landmark'
-      ]
     }
   
     componentDidMount(){
-      if(!this.props.new){
+      if(this.props.location.pathname!=="/new"){
+        console.log("Here")
         const updateSpotId = this.props.match.params.id;
         const updateSpot = this.props.spots.find(spot=> spot.id===Number(updateSpotId));
         this.setState({
@@ -38,7 +34,7 @@ class SpotForm extends React.Component{
   
     handleSubmit = (e) =>{
       e.preventDefault();
-      this.props.onItemAdd(this.state.formData);
+      this.props.onSpotAddUpdate(this.state.formData);
       this.props.history.push('/');
     }
   
@@ -111,7 +107,7 @@ class SpotForm extends React.Component{
               <Col sm={10}>
                 <FormControl as="select" name="type" value={formData.type} onChange={this.handleChange} >
                   <option>select</option>
-                  {this.spotTypes.map(spotType=>(
+                  {this.props.spotTypes.map(spotType=>(
                     <option 
                       key={spotType}
                     >
@@ -144,5 +140,18 @@ class SpotForm extends React.Component{
     }
 }
 
-export default SpotForm;
+const mapStateToProps = (state) =>{
+  return {
+    spots: state.spots,
+    spotTypes: state.spotTypes
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return {
+    onSpotAddUpdate : (data)=> dispatch({type:"ADD_UPDATE_SPOT",data:data})
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(SpotForm);
 

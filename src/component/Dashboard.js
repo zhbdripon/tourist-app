@@ -1,5 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actionTypes from '../store/actions';
 import { Button, Table, FormGroup, FormControl, Container, Row, Col } from 'react-bootstrap';
 
 class Dashboard extends React.Component{
@@ -55,7 +57,7 @@ class Dashboard extends React.Component{
                   <td> 
                       <div className="TableButtonContainer">
                         <Link to={'/'+spot.id}><Button>Update</Button></Link>
-                        <Button className="btn btn-danger" onClick={()=>this.props.onDelete(spot.id)}>Delete</Button>
+                        <Button className="btn btn-danger" onClick={()=>this.props.onSpotDelete(spot.id)}>Delete</Button>
                       </div>
                   </td>
                 </tr>
@@ -69,4 +71,16 @@ class Dashboard extends React.Component{
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) =>{
+  return {
+    spots: state.spots
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return {
+    onSpotDelete : (id) => dispatch({type: actionTypes.DELETE_SPOT, id:id})
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);

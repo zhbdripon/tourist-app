@@ -1,0 +1,2 @@
+export const DELETE_SPOT = 'DELETE_SPOT';
+export const ADD_UPDATE_SPOT = 'ADD_UPDATE_SPOT';
